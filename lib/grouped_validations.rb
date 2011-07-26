@@ -16,7 +16,7 @@ module GroupedValidations
 
       options = args.extract_options!.dup
       unless @_current_validation_group[:with_options]
-        options.reverse_merge!(@_current_validation_group.except(:name)) 
+        options.reverse_merge!(@_current_validation_group.except(:name))
       end
 
       if options.key?(:on)
@@ -38,10 +38,14 @@ module GroupedValidations
 
     def valid?(context=nil)
       super
-      validation_groups.each do |group|
+      validation_groups_to_check.each do |group|
         _run_group_validation_callbacks(group, context)
       end
       errors.empty?
+    end
+
+    def validation_groups_to_check
+      validation_groups
     end
 
     def groups_valid?(*groups)
