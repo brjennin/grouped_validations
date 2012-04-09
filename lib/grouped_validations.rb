@@ -32,10 +32,6 @@ module GroupedValidations
       define_callbacks :"validate_#{group}", :scope => 'validate'
     end
 
-  end
-
-  module InstanceMethods
-
     def valid?(context=nil)
       super
       validation_groups_to_check.each do |group|
